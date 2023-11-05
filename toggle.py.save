@@ -1,0 +1,24 @@
+import RPi.GPIO as GPIO
+from time import sleep
+
+GPIO.setmode(GPIO.BOARD)
+inputPin = 40
+outputPin = 38
+GPIO.setup(inputPin,GPIO.IN)
+GPIO.setup(outputPin,GPIO.OUT)
+
+inputState = 0
+prevInputState = 0
+
+outputState = 0
+
+try:
+	while True:
+		print(inputState,outputState)
+		sleep(.2)
+		inputState = GPIO.input(inputPin)
+		if inputState == 1 and prevInputState == 0:
+			outputState = outputState
+			GPIO.output(outputPin,outputState)
+except KeyboardInterrupt:
+	GPIO.cleanup()		
